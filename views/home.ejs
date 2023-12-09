@@ -1,0 +1,38 @@
+<!-- home.ejs -->
+<html lang="en">
+    <%- include('./partials/styles.ejs') %>
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <h1>Home Page</h1>
+        <!-- Home page -->
+        <h2>Welcome to the home page of my Node.js application
+            <% if (user) { %>
+                <u><%= user.username %></u>
+            <% } %>. Have fun searching my databases!
+        </h2>
+
+        <% if (user) { %>
+
+            <!-- Edit User button -->
+            <a class="editUserLink" href="/login/edit/<%= user.userid %>">Edit User</a>
+
+            <!-- Logout button -->
+            <form action="/logout" method="post" onsubmit="return confirm('Are you sure you want to log out of your account?')">
+                <button class="btnMargin" type="submit">Logout</button>
+            </form>
+
+            <!-- Delete User button -->
+            <form action="/login/<%= user.userid %>?_method=DELETE" method="post" onsubmit="return confirm('Are you sure you want to delete your account?')">
+                <button class="delUserBtn" type="submit">Delete User</button>
+            </form>
+        <% } else { %>
+            <a class="login" href="/login">Login</a>
+        <% } %>
+
+        <% if (message) { %>
+            <h3><%= message %></h3>
+        <% } %>
+        <%- include('./partials/foot.ejs') %>
+    </body>
+</html>

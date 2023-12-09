@@ -1,0 +1,73 @@
+<!-- searchResults.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <%- include('./partials/styles.ejs') %>
+    <%- include('./partials/head.ejs') %>
+</head>
+
+<body>
+    <a id="top"></a>
+    <%- include('./partials/nav.ejs') %>
+
+    <h1 class="biggerText">Search Results</h1>
+    <h2>Total Results: <%= totalResults %></h2>
+    <!-- Back button to return to the search page -->
+    <a class="backToSearch" href="/search">Back to Search</a>
+    <br>
+    <br>
+
+    <% if ((postgresResults && postgresResults.length > 0) || (mongoResults && mongoResults.length > 0)) { %>
+        <div class="results-container">
+            <% if (postgresResults && postgresResults.length > 0) { %>
+                <!-- Box for PostgreSQL results -->
+                <div class="postgres-box">
+                    <div class="marginLeft"><strong>PostgreSQL Results - <%= postgresResults.length %> </strong></div>
+                    <% postgresResults.forEach(function(result) { %>
+                        <div class="result-item">
+                            <p><strong>Result ID:</strong> <%= result.id %></p>
+                            <p><strong>CPU:</strong> <%= result.cpu %></p>
+                            <p><strong>GPU:</strong> <%= result.gpu %></p>
+                            <p><strong>RAM:</strong> <%= result.ram %></p>
+                            <p><strong>Hard Drive:</strong> <%= result.hard_drive %></p>
+                            <p><strong>SSD:</strong> <%= result.ssd %></p>
+                            <p><strong>Motherboard:</strong> <%= result.motherboard %></p>
+                            <p><strong>CPU Cooler:</strong> <%= result.cpu_cooler %></p>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } %>
+
+            <% if (mongoResults && mongoResults.length > 0) { %>
+                <!-- Box for MongoDB results -->
+                <div class="mongodb-box">
+                    <div class="marginLeft"><strong>MongoDB Results - <%= mongoResults.length %> </strong></div>
+                    <% mongoResults.forEach(function(result) { %>
+                        <div class="result-item">
+                            <p><strong>Result ID:</strong> <%= result._id %></p>
+                            <p><strong>Setup ID:</strong> <%= result.setup_id %></p>
+                            <p><strong>Keyboard:</strong> <%= result.keyboard %></p>
+                            <p><strong>Mouse:</strong> <%= result.mouse %></p>
+                            <p><strong>Mouse Pad:</strong> <%= result.mouse_pad %></p>
+                            <p><strong>Desk:</strong> <%= result.desk %></p>
+                            <p><strong>Chair:</strong> <%= result.chair %></p>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } %>
+        </div>
+    <% } else { %>
+        <p>No results found.</p>
+    <% } %>
+
+    <!-- Back to top button -->
+    <a class="backToTop" href="#top">Back to Top</a>
+
+    <%- include('./partials/foot.ejs') %>
+</body>
+
+</html>

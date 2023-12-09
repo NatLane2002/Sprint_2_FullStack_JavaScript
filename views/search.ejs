@@ -1,0 +1,48 @@
+<!-- Search Page -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+</head>
+
+<body>
+    <%- include('./partials/styles.ejs') %>
+    <%- include('./partials/nav.ejs') %>
+    <h1>Search our extensive database of gaming hardware and accessories!</h1>
+    
+    <!-- Search Form -->
+    <form id="searchForm" action="/search" method="POST">
+        <!-- Search Input -->
+        <label for="searchQuery">Search:</label>
+        <input type="text" id="searchQuery" name="query" required>
+
+        <!-- Database Type Dropdown -->
+        <label for="databaseType">Select Database Type:</label>
+        <select id="databaseType" name="databaseType">
+            <option value="both">Both</option>
+            <option value="postgresql">PostgreSQL</option>
+            <option value="mongodb">MongoDB</option>
+        </select>
+
+        <!-- Submit Button -->
+        <br>
+        <button type="submit" onclick="showLoading()">Search</button>
+
+        <!-- Loading Message -->
+        <p id="loadingMessage">Loading...</p>
+    </form>
+
+    <%- include('./partials/foot.ejs') %>
+
+    <script>
+        function showLoading() {
+            // Display loading message when the form is submitted
+            document.getElementById('loadingMessage').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

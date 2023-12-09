@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <%- include('./partials/styles.ejs') %>
+</head>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <% if (logins.length > 0 && userQueries.length > 0) { %>
+        <h1>Welcome, <%= user.username %>!</h1>
+
+        <!-- User Information -->
+        <section class="user-section">
+            <h2>User Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% logins.forEach(function(login) { %>
+                        <tr>
+                            <td><%= login.userid %></td>
+                            <td><%= login.username %></td>
+                            <td><%= login.email %></td>
+                            <td><%= login.password %></td>
+                            <td class="centerText">
+                                <!-- Edit User button -->
+                                <a class="editUserLink" href="/login/edit/<%= login.userid %>">Edit</a>
+                            </td>
+                            <td>
+                                <!-- Delete User button -->
+                                <form action="/login/<%= login.userid %>?_method=DELETE" method="post" onsubmit="return confirm('Are you sure you want to delete this user?')">
+                                    <button class="delUserBtn" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- User Query Information -->
+        <section class="user-query-section">
+            <h2>User Query Information</h2>
+            <table class="tableMarginBottom">
+                <thead>
+                    <tr>
+                        <th>Query ID</th>
+                        <th>User ID</th>
+                        <th>Keyword</th>
+                        <th>Datetime Stamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% userQueries.forEach(function(query) { %>
+                        <tr>
+                            <td><%= query.query_id %></td>
+                            <td><%= query.user_id %></td>
+                            <td><%= query.keyword %></td>
+                            <td><%= query.datetime_stamp %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </section>
+
+    <% } else { %>
+        <h3>No users found</h3>
+    <% } %>
+
+    <%- include('./partials/foot.ejs') %>
+</body>
+
+</html>

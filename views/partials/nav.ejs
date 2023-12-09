@@ -1,0 +1,20 @@
+<div class="navContainer">
+    <nav>
+        <a href="/">home</a>
+        <a href="/about">about</a>
+        <a href="/register">register</a>
+
+        <% if (!user || !user.username) { %>
+            <!-- Show the "login" link only if no user is signed in -->
+            <a href="/login">login</a>
+        <% } else { %>
+            <a href="/search">search</a>
+        <% } %>
+
+        <% if (user && user.username == "NatLane2002") { %>
+            <!-- Show the "admin" link only if a user is signed in as admin -->
+            <a href="/admin">admin</a>
+        <% } %>
+    </nav>
+    <hr class="navHR">
+</div>

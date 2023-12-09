@@ -1,0 +1,27 @@
+<!-- editUser.ejs -->
+<html lang="en">
+    <%- include('./partials/styles.ejs') %>
+    <%- include('./partials/head.ejs') %>
+    <body>
+        <%- include('./partials/nav.ejs') %>
+        <h1>Edit User</h1>
+
+        <form action="/login/<%= user.userid %>?_method=PATCH" method="post">
+            <!-- Add form fields for editing user information -->
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" value="<%= user.username %>" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= user.email %>" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" value="<%= user.password %>" required>
+
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <a class="cancel" href="/">Cancel</a>
+
+        <%- include('./partials/foot.ejs') %>
+    </body>
+</html>
